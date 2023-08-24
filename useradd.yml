@@ -1,0 +1,10 @@
+---
+- name: Create a new user in every server with sudo access
+  hosts:  all
+  become: true
+  tasks:
+    - name: Create the User
+      user:
+        name: testuser
+        groups: wheel
+

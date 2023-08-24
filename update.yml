@@ -1,0 +1,15 @@
+---
+- name: Update Alma Linux
+  hosts:  all
+  become: yes
+  tasks:
+    - name: Update packages
+      yum:
+        name: '*'
+        state:  latest
+          #register: update_result
+
+
+    - name: Show update completion message
+      debug:
+        msg:  "Update completed on {{  inventory_hostname }}"
