@@ -1,0 +1,9 @@
+---
+- name: second playbook
+  hosts:  web
+  tasks:
+    - name: print a message
+      debug:
+        msg:  This is a Test Message
+...
+

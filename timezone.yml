@@ -1,0 +1,8 @@
+---
+- name: Set Timezone on servers
+  hosts:  all
+  become: yes
+  tasks:
+    - name: Set timezone
+      timezone:
+        name: Africa/Juba

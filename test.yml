@@ -1,0 +1,10 @@
+---
+- name: update every nodes
+  hosts:  all
+  tasks:
+     name: update the system
+     yum:
+      - package: "*"
+        state:  latest
+      - debug:
+        msg:  updated

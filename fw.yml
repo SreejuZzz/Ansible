@@ -1,0 +1,26 @@
+---
+- name: Enable HTTP in Firewalld
+  hosts:  web
+  tasks:
+    - name: Allow HTTP
+      firewalld:
+        service:  http
+        permanent:  yes
+        state:  enabled
+      tags:
+        - enable
+    - name: Disable HTTP
+      firewalld:
+        service:  http
+        state:  disabled
+        permanent:  yes
+      tags:
+        - disable
+
+    - name: restart Firewalld
+      tags:
+        - restart
+      systemd:
+        service:  firewalld
+        state:  restarted
+...

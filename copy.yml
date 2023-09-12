@@ -1,0 +1,10 @@
+---
+- name: Copy files from server to clients
+  hosts:  web
+  tasks:
+    - name: Copy Index.html
+      copy:
+        src:  ~/sree/index.html
+        dest: /var/www/html/index.html
+        backup: yes
+...
