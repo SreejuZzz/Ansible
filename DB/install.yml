@@ -1,0 +1,31 @@
+---
+- name: Install and configure MariaDB/MySQL server
+  hosts: db
+  tasks:
+    - name: Install MariaDB Server
+      tags:
+        - install
+      yum:
+        name: mariadb-server
+        state:  latest
+    - name: Remove MariaDB Server
+      tags:
+        - remove
+      yum:
+        name: mariadb-server
+        state:  absent
+    - name: Enable mariaDB Server
+      tags:
+        - enable
+      systemd:
+        name: mariadb
+        enabled:  true
+        state:  started
+    - name: Disable MariaDB Server
+      tags:
+        - disable
+      systemd:
+        name: mariadb
+        enabled:  false
+        state:  stopped
+...

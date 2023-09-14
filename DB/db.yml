@@ -1,0 +1,19 @@
+---
+- name: Create and Drop databases
+  hosts:  db
+  tasks:
+    - name: create database
+      tags:
+        - create
+      mysql_db:
+        name: FirstDB
+        state:  present
+
+    - name: Drop database
+      tags:
+        - drop
+      mysql_db:
+        name: FirstDB
+        state:  absent
+...
+

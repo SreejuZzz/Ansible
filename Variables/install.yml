@@ -1,0 +1,74 @@
+---
+- name: Install and configure MariaDB/MySQL server
+  hosts: db
+  vars:
+    dbname: planets
+    dbusername: sreejith
+    dbuserpass: huehuehue
+    dbsocket: /var/lib/mysql/mysql.sock
+  tasks:
+    - name: Install MariaDB Server
+      tags:
+        - install
+      yum:
+        name: mariadb-server
+        state:  latest
+    - name: Install PyMySQL
+      tags:
+        - pymysql
+      yum:
+        name: python3-PyMySQL
+        state:  latest
+    - name: Remove MariaDB Server
+      tags:
+        - remove
+      yum:
+        name: mariadb-server
+        state:  absent
+    - name: Enable mariaDB Server
+      tags:
+        - enable
+      systemd:
+        name: mariadb
+        enabled:  true
+        state:  started
+    - name: Disable MariaDB Server
+      tags:
+        - disable
+      systemd:
+        name: mariadb
+        enabled:  false
+        state:  stopped
+    - name: Create a New DataBase
+      tags:
+        - dbcreate
+      mysql_db:
+        name: "{{dbname}}"
+        state:  present
+        login_unix_socket:  "{{dbsocket}}"
+    - name: Delete a DataBase
+      tags:
+        - dbremove
+      mysql_db:
+        name: "{{dbname}}"
+        state:  absent
+        login_unix_socket:  "{{dbsocket}}"
+    - name: Create a New DataBase User
+      tags:
+        - ucreate
+      mysql_user:
+        name: "{{dbusername}}"
+        password: "{{dbuserpass}}"
+        priv: '*.*:ALL'
+        state:  present
+        login_unix_socket:  "{{dbsocket}}"
+
+    - name: Delete DataBase User
+      tags:
+        - uremove
+      mysql_user:
+        name: "{{dbusername}}"
+        state:  absent
+        login_unix_socket:  "{{dbsocket}}"
+
+...
