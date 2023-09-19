@@ -2,10 +2,10 @@
 - name: Install and configure MariaDB/MySQL server
   hosts: db
   vars:
-    dbname: planets
-    dbusername: sreejith
-    dbuserpass: huehuehue
-    dbsocket: /var/lib/mysql/mysql.sock
+    #dbname: planets
+    #dbusername: sreejith
+    #dbuserpass: huehuehue
+    #dbsocket: /var/lib/mysql/mysql.sock
   tasks:
     - debug:
         msg:  "The database name is {{dbname}}"
@@ -81,6 +81,6 @@
       tags:
         - debug3
       debug:
-        var: register
+        var: dbout
 
 ...

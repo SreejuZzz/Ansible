@@ -1,0 +1,18 @@
+---
+- name: Understanding variables
+  hosts:  all
+  vars:
+    #uname:  playuser
+    #comm: Variable from playbook
+  tasks:
+    - name: Create a New User
+      user:
+        name: "{{uname}}"
+        comment:  "{{comm}}"
+      register: uout
+
+    - debug:
+        var:  uout.name
+
+    - debug:
+        var:  uout.comment

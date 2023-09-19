@@ -1,0 +1,18 @@
+---
+- name: Create and Remove Users in Mysql / Maria Database
+  hosts:  db
+  tasks:
+    - name: Create a new DB User
+      tags:
+        - create
+      mysql_user:
+        name: synnefodbuser
+        password: asd123.
+        state:  present
+    - name: Delete a DB User
+      tags:
+        - delete
+      mysql_user:
+        name: synnefouser
+        state: absent
+...

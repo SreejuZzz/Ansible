@@ -1,0 +1,31 @@
+---
+- name: Add, Remove and Reload Firewalld
+  hosts:  web
+  tasks:
+    - name: Add Http in Firewall
+      tags:
+        - allow
+      firewalld:
+        service:  http
+        state:  enabled
+        permanent: yes
+
+
+    - name: Remove http from from Firewall
+      tags:
+        - block
+      firewalld:
+        service:  http
+        state:  disabled
+        permanent:  yes
+
+
+
+    - name: Reload Firewalld
+      tags:
+        - reload
+      systemd:
+        service:  firewalld
+        state:  restarted
+
+...

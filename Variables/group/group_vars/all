@@ -1,0 +1,4 @@
+dbname:	group
+dbusername:	sree
+dbuserpass:	huehuehue
+dbsocket: /var/lib/mysql/mysql.sock

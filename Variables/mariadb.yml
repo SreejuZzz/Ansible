@@ -1,0 +1,73 @@
+---
+- name: Install and Configure MariaDB
+  hosts:  db
+  vars:
+    dbname: IndiaDB
+    dbuname:  sreejith
+    dbupass:  hello@123
+    dbsocket: /var/lib/mysql/mysql.sock
+  tasks:
+    - name: Install MariaDB
+      tags:
+        - install
+      yum:
+        name: mariadb-server
+        state:  latest
+
+    - name: Remove MariaDB
+      tags:
+        - remove
+      yum:
+        name: mariadb-server
+        state:  absent
+
+    - name: Enable MariaDB
+      tags:
+        - enable
+      systemd:
+        service:  mariadb
+        state:  started
+        enabled:  true
+
+    - name: Disable MariaDB
+      tags:
+        - disable
+      systemd:
+        service:  mariadb
+        state:  stopped
+        enabled:  false
+
+    - name: Create DataBase
+      tags:
+        - dbcreate
+      mysql_db:
+        name: "{{dbname}}"
+        state:  present
+        login_unix_socket:  "{{dbsocket}}"
+
+    - name: Delete DataBase
+      tags:
+        - dbremove
+      mysql_db:
+        name: "{{dbname}}"
+        state:  absent
+        login_unix_socket:  "{{dbsocket}}"
+
+    - name: Create DataBase User
+      tags:
+        - ucreate
+      mysql_user:
+        name: "{{dbuname}}"
+        password: "{{dbupass}}"
+        priv: '*.*:ALL'
+        login_unix_socket:  "{{dbsocket}}"
+        state:  present
+
+    - name: delete DataBase User
+      tags:
+        - uremove
+      mysql_user:
+        name: "{{dbuname}}"
+        login_unix_socket:  "{{dbsocket}}"
+        state:  absent
+...

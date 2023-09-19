@@ -1,0 +1,2 @@
+uname:	dbuser
+comm:	variable from group_vars_db

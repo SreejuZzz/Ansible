@@ -1,0 +1,15 @@
+---
+- name: Print variables
+  hosts:  all
+  vars:
+    name: Sreejith
+    age:  24
+    email:  sreejithmsreenivas@gmail.com
+  tasks:
+    - name: Print
+      debug:
+        msg:
+          - name {{name}}
+          - age  {{age}}
+          - email {{email}}
+...
