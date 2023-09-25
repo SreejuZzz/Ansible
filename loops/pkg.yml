@@ -1,0 +1,27 @@
+---
+- name: install more than one package at once after checking the Ansible distribution
+  hosts:  all
+  tasks:
+    - name: install packages on Ubuntu
+      when: ansible_distribution == "Ubuntu"
+      loop:
+        - ntp
+        - wget
+        - zip
+        - unzip
+      apt:
+        name: "{{item}}"
+        state:  latest
+        update_cache: true
+
+    - name: install packages on Alma
+      when: ansible_distribution == "AlmaLinux"
+      loop:
+        - chrony
+        - wget
+        - zip
+        - unzip
+      yum:
+        name: "{{item}}"
+        state:  latest
+

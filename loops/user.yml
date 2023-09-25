@@ -1,0 +1,27 @@
+---
+- name: Create users in Ubuntu and AlmaLinux and add them to respective admin group
+  hosts:  all
+  vars:
+    ubuntu: sudo
+    alma: wheel
+  tasks:
+    - name: create users in Ubuntu
+      when: ansible_distribution == "ubuntu"
+      loop: 
+        - earth
+        - mars
+        - jupiter
+      user:
+        name: "{{item}}"
+        groups: "{{ubuntu}}"
+    - name: create users in alma
+      when: ansible_distribution == "AlmaLinux"
+      loop:
+        - earth
+        - mars
+        - jupiter
+      user:
+        name: "{{item}}"
+        groups: "{{alma}}"
+
+
